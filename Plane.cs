@@ -4,6 +4,8 @@ using Anna.utils;
 [ExecuteInEditMode]
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class Plane : MonoBehaviour {
+
+    [Header("Dimensions")]
     public int width;
     public int height;
     public float resolution;
@@ -14,15 +16,15 @@ public class Plane : MonoBehaviour {
     private Mesh mesh;
 
     private void Start() {
-        vertices = new Vector3[(width+1)*(height+1)];
-        vertices2D = new Vector2[(width+1)*(width+1)];
-        triangles = new int[(width) * (height) * 6];
-
         CreateQuad();
     }
 
-    private void CreateQuad(){
-        mesh = GetComponent<MeshFilter>().mesh;
+    public void CreateQuad(){
+        vertices = new Vector3[(width+1)*(height+1)];
+        vertices2D = new Vector2[(width+1)*(width+1)];
+        triangles = new int[(width) * (height) * 6];
+        
+        mesh = GetComponent<MeshFilter>().sharedMesh;
 
         for (int j = 0, k = 0; j <= height; j++)
         {
