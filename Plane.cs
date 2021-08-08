@@ -18,6 +18,10 @@ public class Plane : MonoBehaviour {
         vertices2D = new Vector2[(width+1)*(width+1)];
         triangles = new int[(width) * (height) * 6];
 
+        CreateQuad();
+    }
+
+    private void CreateQuad(){
         mesh = GetComponent<MeshFilter>().mesh;
 
         for (int j = 0, k = 0; j <= height; j++)
@@ -56,13 +60,5 @@ public class Plane : MonoBehaviour {
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
         mesh.Optimize();
-    }
-
-    private void OnDrawGizmos() {
-        if (vertices == null)
-            return;
-
-        //for (int i = 0; i < vertices.Length; i++)
-            //Gizmos.DrawSphere(vertices[i], .1f);
     }
 }
