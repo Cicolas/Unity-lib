@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Anna.utils
@@ -6,9 +7,12 @@ namespace Anna.utils
     /// This script can be used to mange and create minValues and maxValues.
     /// it's a range shorthand.
     /// </summary>
+    [Serializable]
     public class MinMaxRange {
         public float minVal;
         public float maxVal;
+
+        public MinMaxRange(){}
 
         public MinMaxRange(float min, float max){
             this.maxVal = max;
@@ -22,7 +26,7 @@ namespace Anna.utils
         }
 
         public float GetRandomValueBetween(){
-            return Random.value*(maxVal-minVal)+minVal;
+            return UnityEngine.Random.value*(maxVal-minVal)+minVal;
         }
     }
 }
