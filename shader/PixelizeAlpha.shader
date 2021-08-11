@@ -4,8 +4,14 @@ Shader "CicolasShaders/pixelizeAlpha"
     {
         _Tex ("Texture", 2D) = "white" {}
         [IntRange] _Factor ("Resolution", Range(8.0, 256.0)) = 0
+
+        [Space(20)]
         [Toggle] _TextureAlpha ("Use texture alpha", Float) = 0 
-        [Toggle] _UseAlpha ("Use absolute alpha", Float) = 0 
+        [Toggle] _UseAlpha ("Use absolute alpha", Float) = 0
+        
+        [Space(20)]
+        [Toggle] _Silhouette ("Is silhouette", Float) = 0
+        _Color ("Color Mask", Color) = (255, 255, 255, 255)
     }
     SubShader
     {
@@ -43,6 +49,8 @@ Shader "CicolasShaders/pixelizeAlpha"
             float _Factor;
             float _TextureAlpha;
             float _UseAlpha;
+            float4 _Color;
+            float _Silhouette;
 
             Interpolator vert (MeshData In)
             {
@@ -62,11 +70,13 @@ Shader "CicolasShaders/pixelizeAlpha"
                 uv = floorAll(uv, _Factor);
 
                 float4 tex = tex2D(_Tex, uv);
-                float texW = tex2D(_Tex, In.uv).w;
-                float finalTexW = lerp(tex.w, texW, _TextureAlpha);
+                float finalTexW = lerp(tex.w, tex2D(_Tex, In.uv).w, _TextureAlpha);
                 finalTexW = lerp(finalTexW, ceil(finalTexW-.25), _UseAlpha);
+                
+                tex = float4(tex.xyz, finalTexW);
+                tex = lerp(tex*_Color, float4(_Color.xyz, tex.w), _Silhouette);
 
-                return float4(tex.xyz, finalTexW);
+                return tex;
             }
             ENDCG
         }

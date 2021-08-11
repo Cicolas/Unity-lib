@@ -4,6 +4,10 @@ Shader "CicolasShaders/pixelize"
     {
         _Tex ("Texture", 2D) = "white" {}
         [IntRange] _Factor ("Resolution", Range(8.0, 256.0)) = 0
+        
+        [Space(20)]
+        [Toggle] _Silhouette ("Is silhouette", Float) = 0
+        _Color ("Color Mask", Color) = (0, 0, 0, 0) 
     }
     SubShader
     {
@@ -37,6 +41,8 @@ Shader "CicolasShaders/pixelize"
             sampler2D _Tex;
             float4 _Tex_ST;
             float _Factor;
+            float4 _Color;
+            float _Silhouette;
 
             Interpolator vert (MeshData In)
             {
@@ -56,6 +62,7 @@ Shader "CicolasShaders/pixelize"
                 uv = floorAll(uv, _Factor);
 
                 float4 tex = tex2D(_Tex, uv);
+                tex = lerp(tex*_Color, float4(_Color.xyz, tex.w), _Silhouette);
 
                 return tex;
             }
