@@ -3,17 +3,17 @@ using System.Reflection;
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
-using Anna.utils;
+using Anna;
 
 [CustomPropertyDrawer(typeof(MinMaxRange))]
 public class MinMaxRangeEditor : PropertyDrawer {
     //bool foldout = false;
-
+    
     public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) {
         //base.OnGUI(position, property, label);
         
-        var minVal = property.FindPropertyRelative("minVal");
-        var maxVal = property.FindPropertyRelative("maxVal");
+        var minVal = property.FindPropertyRelative("min");
+        var maxVal = property.FindPropertyRelative("max");
 
         EditorGUILayout.Space(-20);
 

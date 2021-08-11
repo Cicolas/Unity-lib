@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Anna.utils
+namespace Anna
 {
     /// <summary>
     /// This script can be used to easily read documents.

@@ -1,5 +1,5 @@
 using UnityEngine;
-using Anna.utils;
+using Anna;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
