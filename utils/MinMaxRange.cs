@@ -30,11 +30,21 @@ namespace Anna
                 return true;
             return false;
         }
+        
+        public float NumberByPerCent(float perCent) {
+            return (perCent*range)+min;
+        }
+
+        public float PerCentByNumber(float number) {
+            return (number-min)/range;
+        }
 
         public float GetRandomValueBetween(){
             return UnityEngine.Random.value*(max-min)+min;
         }
 
         public float range{get{return max-min;}}
+
+        public float center{get{return (max+min)/2;}}
     }
 }
