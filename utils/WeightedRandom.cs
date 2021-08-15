@@ -16,12 +16,12 @@ namespace Anna
             public int weight;
         }
 
-        public Weight[] randomList;
+        public List<Weight> randomList = new List<Weight>();
 
         private Random rnd = new Random();
         private List<T> randomPool;
 
-        WeightedRandom() {}
+        public WeightedRandom() {}
 
         public T GetRandom(){
             SetupPool();
@@ -36,13 +36,24 @@ namespace Anna
 
             randomPool.Clear();
 
-            for (int i = 0; i < randomList.Length; i++)
+            for (int i = 0; i < randomList.Count; i++)
             {
                 for (int j = 0; j < randomList[i].weight; j++)
                 {
                     randomPool.Add(randomList[i].obj);
                 }
             }
+        }
+
+        public void Add(T value, int w){
+            if (w <= 0)
+                return;
+
+            Weight weight1;
+            weight1.obj = value;
+            weight1.weight = w;
+
+            randomList.Add(weight1);
         }
     }
 }
